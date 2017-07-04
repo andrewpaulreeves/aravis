@@ -221,7 +221,13 @@
 		<DisplayName>Pixel format</DisplayName>
 		<EnumEntry Name="Mono8" NameSpace="Standard">
 			<Value>17301505</Value>
-		</EnumEntry>
+        </EnumEntry>
+        <EnumEntry Name="Mono10" NameSpace="Standard">
+			<Value>17825795</Value>
+        </EnumEntry>
+        <EnumEntry Name="Mono16" NameSpace="Standard">
+			<Value>17825799</Value>
+        </EnumEntry>
 		<pValue>PixelFormatRegister</pValue>
 	</Enumeration>
 
@@ -451,7 +457,7 @@
 	<IntSwissKnife Name="PayloadSize" NameSpace="Standard">
 		<pVariable Name="WIDTH">Width</pVariable>
 		<pVariable Name="HEIGHT">Height</pVariable>
-		<Formula>WIDTH * HEIGHT</Formula>
+        <Formula>WIDTH * HEIGHTi * 2</Formula> <!--*2 to be 16bit-->
 	</IntSwissKnife>
 
 	<Integer Name="TLParamsLocked">

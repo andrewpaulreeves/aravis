@@ -152,14 +152,22 @@ _get_register (ArvFakeCamera *camera, guint32 address)
 size_t
 arv_fake_camera_get_payload (ArvFakeCamera *camera)
 {
-	guint32 width, height;
-
+	guint32 width, height, byte_depth;
+    ArvPixelFormat pixel_format;
+        
 	g_return_val_if_fail (ARV_IS_FAKE_CAMERA (camera), 0);
 
 	width = _get_register (camera, ARV_FAKE_CAMERA_REGISTER_WIDTH);
 	height = _get_register (camera, ARV_FAKE_CAMERA_REGISTER_HEIGHT);
+    pixel_format = _get_register(camera, ARV_FAKE_CAMERA_REGISTER_PIXEL_FORMAT);
 
-	return width * height;
+    // If pixels not 8bit, assume 16bit
+    if (pixel_format == ARV_PIXEL_FORMAT_MONO_8)
+        byte_depth = 1;
+    else
+        byte_depth = 2;
+
+	return width * height * byte_depth;
 }
 
 guint64
@@ -506,7 +514,7 @@ arv_fake_camera_new (const char *serial_number)
 					ARV_FAKE_CAMERA_BINNING_HORIZONTAL_DEFAULT);
 	arv_fake_camera_write_register (fake_camera, ARV_FAKE_CAMERA_REGISTER_BINNING_VERTICAL,
 					ARV_FAKE_CAMERA_BINNING_HORIZONTAL_DEFAULT);
-	arv_fake_camera_write_register (fake_camera, ARV_FAKE_CAMERA_REGISTER_PIXEL_FORMAT, ARV_PIXEL_FORMAT_MONO_8);
+	arv_fake_camera_write_register (fake_camera, ARV_FAKE_CAMERA_REGISTER_PIXEL_FORMAT, ARV_PIXEL_FORMAT_MONO_16);
 
 	arv_fake_camera_write_register (fake_camera, ARV_FAKE_CAMERA_REGISTER_ACQUISITION, 0);
 	arv_fake_camera_write_register (fake_camera, ARV_FAKE_CAMERA_REGISTER_ACQUISITION_MODE, 1);
