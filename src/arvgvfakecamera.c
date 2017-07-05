@@ -569,6 +569,13 @@ arv_gv_fake_camera_init (ArvGvFakeCamera *gv_fake_camera)
 	gv_fake_camera->priv->interface_name = g_strdup ("lo");
 }
 
+ArvFakeCamera *
+arv_gv_fake_get_camera (ArvGvFakeCamera *gv_fake_camera)
+{
+    return gv_fake_camera->priv->camera;
+}
+
+
 static void
 _constructed (GObject *gobject)
 {
@@ -579,6 +586,7 @@ _constructed (GObject *gobject)
 	gv_fake_camera->priv->camera = arv_fake_camera_new ("GV01");
 
 }
+
 
 static void
 _finalize (GObject *object)
