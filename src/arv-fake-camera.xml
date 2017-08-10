@@ -457,7 +457,7 @@
 	<IntSwissKnife Name="PayloadSize" NameSpace="Standard">
 		<pVariable Name="WIDTH">Width</pVariable>
 		<pVariable Name="HEIGHT">Height</pVariable>
-        <Formula>WIDTH * HEIGHTi * 2</Formula> <!--*2 to be 16bit-->
+        <Formula>WIDTH * HEIGHT * 2</Formula> <!--*2 to be 16bit-->
 	</IntSwissKnife>
 
 	<Integer Name="TLParamsLocked">
