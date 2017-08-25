@@ -546,7 +546,7 @@ arv_gv_fake_camera_new (const char *interface_name)
 }
 
 ArvFakeCamera * 
-arv_fv_fake_camera_get_cam(ArvGvFakeCamera *gv_fake_camera)
+arv_gv_fake_camera_get_cam(ArvGvFakeCamera *gv_fake_camera)
 {
     return gv_fake_camera->priv->camera;
 }
