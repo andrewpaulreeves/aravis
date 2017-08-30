@@ -4,6 +4,7 @@
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
+ *
  * License as published by the Free Software Foundation; either
  * version 2 of the License, or (at your option) any later version.
  *
@@ -444,6 +445,7 @@ arv_gv_fake_camera_start (ArvGvFakeCamera *gv_fake_camera)
 			inet_address = g_inet_socket_address_get_address (G_INET_SOCKET_ADDRESS (socket_address));
 			gvcp_address_string = g_inet_address_to_string (inet_address);
 			arv_debug_device ("[GvFakeCamera::start] Interface address = %s", gvcp_address_string);
+            
 
 			inet_socket_address = g_inet_socket_address_new (inet_address, ARV_GVCP_PORT);
 			gv_fake_camera->priv->gvcp_socket = g_socket_new (G_SOCKET_FAMILY_IPV4,
@@ -468,6 +470,7 @@ arv_gv_fake_camera_start (ArvGvFakeCamera *gv_fake_camera)
 			inet_address = g_inet_address_new_from_string ("255.255.255.255");
 			discovery_address_string = g_inet_address_to_string (inet_address);
 			arv_debug_device ("[GvFakeCamera::start] Discovery address = %s", discovery_address_string);
+
 			inet_socket_address = g_inet_socket_address_new (inet_address, ARV_GVCP_PORT);
 			if (g_strcmp0 (gvcp_address_string, discovery_address_string) == 0)
 				gv_fake_camera->priv->discovery_socket = NULL;
@@ -513,7 +516,6 @@ arv_gv_fake_camera_start (ArvGvFakeCamera *gv_fake_camera)
 	if (!interface_found) {
 		return FALSE;
 	}
-
 	gv_fake_camera->priv->cancel = FALSE;
 	gv_fake_camera->priv->thread = arv_g_thread_new ("arv_fake_gv_fake_camera", _thread, gv_fake_camera);
 
@@ -551,6 +553,13 @@ arv_gv_fake_camera_get_cam(ArvGvFakeCamera *gv_fake_camera)
     return gv_fake_camera->priv->camera;
 }
 
+gboolean
+arv_gv_fake_camera_set_cam(ArvGvFakeCamera *gv_fake_camera, ArvFakeCamera *fake_camera)
+{
+    gv_fake_camera->priv->camera = fake_camera;
+    return TRUE;
+}
+
 static void
 _set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
@@ -582,7 +591,7 @@ _constructed (GObject *gobject)
 
 	parent_class->constructed (gobject);
 
-	gv_fake_camera->priv->camera = arv_fake_camera_new ("GV01");
+	gv_fake_camera->priv->camera = arv_fake_camera_new ("GF");
 
 }
 

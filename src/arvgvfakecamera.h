@@ -53,10 +53,12 @@ struct _ArvGvFakeCameraClass {
 
 GType arv_gv_fake_camera_get_type (void);
 
-ArvGvFakeCamera *		arv_gv_fake_camera_new		(const char *interface_name);
+ArvGvFakeCamera *	arv_gv_fake_camera_new	    (const char *interface_name);
 gboolean 			arv_gv_fake_camera_start	(ArvGvFakeCamera *gv_fake_camera);
 void	 			arv_gv_fake_camera_stop		(ArvGvFakeCamera *gv_fake_camera);
 ArvFakeCamera *     arv_gv_fake_camera_get_cam  (ArvGvFakeCamera *gv_fake_camera);
+int                 arv_gv_fake_camera_set_cam  (ArvGvFakeCamera *gv_fake_camera, ArvFakeCamera *fake_camera);
+
 G_END_DECLS
 
 #endif
